@@ -25,10 +25,10 @@ namespace Sample.Controllers
         {
             var properties = new Properties()
                 .SetEventProperty("event", "value")
-                .SetUserProperty("user-property-to-set", "value")
-                .SetUserPopertyOnce("user-property-to-set-once", "value");
+                .SetUserProperty("user-property-to-set", "value") // $set equivalent
+                .SetUserPopertyOnce("user-property-to-set-once", "value"); // $set_once equivalent
 
-            _postHogClient.Capture("a86818cc-c84e-4453-9c48-d7bb636e7f2d", "Fetch weather forecase", properties);
+            _postHogClient.Capture("a86818cc-c84e-4453-9c48-d7bb636e7f2d", "Fetch weather forecast", properties);
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

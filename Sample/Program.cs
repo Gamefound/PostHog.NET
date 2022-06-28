@@ -15,6 +15,7 @@ namespace Sample
 
             services.AddPostHog("api-key", config =>
             {
+                // leave empty if you are not self-hosting 
                 config.Host = "example.com";
             });
 
