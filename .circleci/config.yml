@@ -14,8 +14,8 @@ jobs:
     steps:
       # Checkout source code and try to build & pack
       - checkout
-      - run: dotnet restore PostHog.NET\PostHog.NET.csproj
-      - run: dotnet build PostHog.NET\PostHog.NET.csproj --configuration Release
+      - run: dotnet restore PostHog.NET/PostHog.NET.csproj
+      - run: dotnet build PostHog.NET/PostHog.NET.csproj --configuration Release
   pack:
     working_directory: /pack
     executor:  
@@ -24,7 +24,7 @@ jobs:
       - checkout
       - run:
           name: Generating Nuget Package
-          command: dotnet pack -o /packages -c Release PostHog.NET\PostHog.NET.csproj
+          command: dotnet pack -o /packages -c Release PostHog.NET/PostHog.NET.csproj
       - store_artifacts:
           path: /packages/
   test:
