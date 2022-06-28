@@ -2,16 +2,16 @@
 
 # Community .NET package for PostHog
 
-# Build 
+## Build 
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Gamefound/PostHog.NET/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Gamefound/PostHog.NET/tree/master)
 
-# Get Package
+## Get Package
 // TODO:
 
 You can get PostHog.NET by [grabbing the latest NuGet package]().
 
-# Get Started
+## Get Started
 
 Simply inject IPostHogClient 
 ```
@@ -31,3 +31,7 @@ var properties = new Properties()
 
 _postHogClient.Capture("a86818cc-c84e-4453-9c48-d7bb636e7f2d", "Fetch weather forecast", properties);
 ```
+
+## Thanks
+
+This library is largely based on the [Analytics.NET](https://github.com/segmentio/Analytics.NET) package.
