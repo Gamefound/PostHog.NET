@@ -12,8 +12,16 @@
 You can get PostHog.NET by [grabbing the latest NuGet package]().
 
 ## Get Started
+Register the service
+```
+services.AddPostHog("api-key", config =>
+            {
+                // leave empty if you are not self-hosting 
+                config.Host = "example.com";
+            });
+```
 
-Simply inject IPostHogClient 
+Inject IPostHogClient 
 ```
 private readonly IPostHogClient _postHogClient;
 
