@@ -7,7 +7,6 @@
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Gamefound/PostHog.NET/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Gamefound/PostHog.NET/tree/master)
 
 ## Get Package
-// TODO:
 
 You can get PostHog.NET by [grabbing the latest NuGet package](https://www.nuget.org/packages/PostHog.NET).
 
