@@ -9,7 +9,7 @@
 ## Get Package
 // TODO:
 
-You can get PostHog.NET by [grabbing the latest NuGet package]().
+You can get PostHog.NET by [grabbing the latest NuGet package](https://www.nuget.org/packages/PostHog.NET).
 
 ## Get Started
 Register the service
