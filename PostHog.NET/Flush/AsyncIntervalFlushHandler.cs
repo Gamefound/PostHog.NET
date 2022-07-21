@@ -39,7 +39,7 @@ namespace PostHog.Flush
 
         private Timer? _timer;
 
-        private string _apiKey;
+        private readonly string _apiKey;
 
         internal AsyncIntervalFlushHandler(IRequestHandler requestHandler,
             int maxQueueSize,

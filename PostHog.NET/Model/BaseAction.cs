@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace PostHog.Model
 {
     public class BaseAction
     {
-        public BaseAction(string @event, string? distinctId, IReadOnlyDictionary<string, object>? properties = null, DateTime? timestamp = null)
+        public BaseAction(string @event, string? distinctId, Properties? properties = null, DateTime? timestamp = null)
         {
             Event = @event;
             DistinctId = distinctId;
@@ -21,7 +20,7 @@ namespace PostHog.Model
         public string Event { get; set; }
 
         [JsonProperty(PropertyName = "properties")]
-        public IReadOnlyDictionary<string, object>? Properties { get; set; }
+        public Properties? Properties { get; set; }
 
         [JsonIgnore]
         public int Size { get; set; }

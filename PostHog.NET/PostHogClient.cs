@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using PostHog.Flush;
+﻿using PostHog.Flush;
 using PostHog.Model;
 using PostHog.Request;
 using PostHog.Stats;
+using System;
+using System.Threading.Tasks;
 
 namespace PostHog
 {
@@ -39,21 +38,18 @@ namespace PostHog
             _flushHandler = new AsyncIntervalFlushHandler(requestHandler, config.MaxQueueSize, config.FlushAt, config.FlushInterval, config.Threads, apiKey);
         }
 
-        public event IPostHogClient.FailedHandler? Failed;
-
-        public event IPostHogClient.SucceededHandler? Succeeded;
-
         public Config Config { get; }
+
+        public Func<BaseAction, Exception, Task> OnFailure { get; set; } = (action, e) => Task.CompletedTask;
+
+        public Func<BaseAction, Task> OnSuccess { get; set; } = context => Task.CompletedTask;
 
         public Statistics Statistics { get; set; }
 
         public void Alias(string newId, string originalId)
         {
-            Enqueue(new Alias(originalId, new Dictionary<string, object>
-            {
-                { "distinct_id", originalId },
-                { "alias", newId }
-            }));
+            var properties = new Properties().SetEventProperty("alias", newId);
+            Enqueue(new Alias(originalId, properties));
         }
 
         public void Capture(string distinctId, string eventName, Properties? properties = null)
@@ -76,19 +72,19 @@ namespace PostHog
             Enqueue(new Identify(distinctId, properties));
         }
 
-        public void Page(string distinctId, string name, string? category = null, Properties? properties = null)
+        public void Page(string distinctId, Properties? properties = null)
         {
-            Enqueue(new Page(name, category, distinctId, properties));
+            Enqueue(new Page(distinctId, properties));
         }
 
         internal void RaiseFailure(BaseAction action, Exception e)
         {
-            Failed?.Invoke(action, e);
+            OnFailure.Invoke(action, e);
         }
 
         internal void RaiseSuccess(BaseAction action)
         {
-            Succeeded?.Invoke(action);
+            OnSuccess.Invoke(action);
         }
 
         private void Enqueue(BaseAction action)

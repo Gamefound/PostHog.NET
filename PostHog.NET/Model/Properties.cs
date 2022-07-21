@@ -64,22 +64,22 @@ namespace PostHog.Model
 
         public Properties SetEventProperty(string key, object value)
         {
-            _eventProperties.Add(key, value);
+            _eventProperties[key] = value;
             return this;
         }
 
         public Properties SetUserPopertyOnce(string key, object value)
         {
-            _userPropertiesToSetOnce.Add(key, value);
-            _ = _eventProperties.TryAdd("$set_once", _userPropertiesToSetOnce);
+            _userPropertiesToSetOnce[key] = value;
+            _eventProperties["$set_once"] = _userPropertiesToSetOnce;
 
             return this;
         }
 
         public Properties SetUserProperty(string key, object value)
         {
-            _userPropertiesToSet.Add(key, value);
-            _ = _eventProperties.TryAdd("$set", _userPropertiesToSet);
+            _userPropertiesToSet[key] = value;
+            _eventProperties["$set"] = _userPropertiesToSet;
 
             return this;
         }

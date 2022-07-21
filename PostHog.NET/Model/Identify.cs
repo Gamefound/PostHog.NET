@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace PostHog.Model
+﻿namespace PostHog.Model
 {
     public class Identify : BaseAction
     {
-        public Identify(string userId, IReadOnlyDictionary<string, object>? properties) : base("$identify", userId, properties)
+        public Identify(string userId, Properties? properties) : base("$identify", userId, properties)
         {
-
         }
     }
 }
