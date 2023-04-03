@@ -21,6 +21,8 @@ namespace PostHog.Flush
         /// </summary>
         private const int BatchMaxSize = 500 * 1024;
 
+        private readonly string _apiKey;
+
         private readonly CancellationTokenSource _continue;
 
         private readonly TimeSpan _flushInterval;
@@ -38,8 +40,6 @@ namespace PostHog.Flush
         private readonly int _threads;
 
         private Timer? _timer;
-
-        private readonly string _apiKey;
 
         internal AsyncIntervalFlushHandler(IRequestHandler requestHandler,
             int maxQueueSize,
@@ -98,11 +98,15 @@ namespace PostHog.Flush
             {
                 do
                 {
-                    if (!_queue.TryDequeue(out var action)) break;
+                    if (!_queue.TryDequeue(out var action))
+                    {
+                        break;
+                    }
 
                     current.Add(action);
                     currentSize += action.Size;
-                } while (!_queue.IsEmpty && current.Count < _maxBatchSize && !_continue.Token.IsCancellationRequested && currentSize < BatchMaxSize - ActionMaxSize);
+                } while (!_queue.IsEmpty && current.Count < _maxBatchSize && !_continue.Token.IsCancellationRequested &&
+                         currentSize < BatchMaxSize - ActionMaxSize);
 
                 if (current.Count > 0)
                 {

@@ -5,10 +5,13 @@ namespace PostHog.DI
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddPostHog(this IServiceCollection services, string apiKey) =>
-            AddPostHog(services, apiKey, null);
+        public static IServiceCollection AddPostHog(this IServiceCollection services, string apiKey)
+        {
+            return AddPostHog(services, apiKey, null);
+        }
 
-        public static IServiceCollection AddPostHog(this IServiceCollection services, string apiKey, Action<Config>? configuration)
+        public static IServiceCollection AddPostHog(this IServiceCollection services, string apiKey,
+            Action<Config>? configuration)
         {
             var config = new Config();
             configuration?.Invoke(config);

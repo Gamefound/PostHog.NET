@@ -12,7 +12,7 @@ namespace Test.Model
         [TestMethod]
         public void PropertiesTests_SetEventProperty_ShouldAddEventProperty()
         {
-            var properties = new Properties().SetUserPopertyOnce("key", new [] { 1, 2 ,3 });
+            var properties = new Properties().SetUserPropertyOnce("key", new [] { 1, 2 ,3 });
 
             properties.Should().HaveCount(1);
             properties.First().Key.Should().Be("$set_once");
@@ -22,7 +22,7 @@ namespace Test.Model
         [TestMethod]
         public void PropertiesTests_SetEventProperty_ShouldAllowOverridingValuesWithSameKey()
         {
-            var properties = new Properties().SetUserPopertyOnce("key", new[] { 1, 2, 3 }).SetUserPopertyOnce("key", 1);
+            var properties = new Properties().SetUserPropertyOnce("key", new[] { 1, 2, 3 }).SetUserPropertyOnce("key", 1);
 
             properties.Should().HaveCount(1);
             properties.Should().ContainKey("$set_once");

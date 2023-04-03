@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace PostHog.Model
 {
@@ -19,7 +19,9 @@ namespace PostHog.Model
         {
         }
 
-        public Properties(Dictionary<string, object> eventProperties, Dictionary<string, object>? userPropertiesToSet = null, Dictionary<string, object>? userPopertiesToSetOnce = null)
+        public Properties(Dictionary<string, object> eventProperties,
+            Dictionary<string, object>? userPropertiesToSet = null,
+            Dictionary<string, object>? userPropertiesToSetOnce = null)
         {
             _eventProperties = eventProperties;
             if (userPropertiesToSet != null)
@@ -27,9 +29,9 @@ namespace PostHog.Model
                 _userPropertiesToSet = userPropertiesToSet;
             }
 
-            if (userPopertiesToSetOnce != null)
+            if (userPropertiesToSetOnce != null)
             {
-                _userPropertiesToSetOnce = userPopertiesToSetOnce;
+                _userPropertiesToSetOnce = userPropertiesToSetOnce;
             }
         }
 
@@ -38,14 +40,6 @@ namespace PostHog.Model
         {
             _eventProperties = eventProperties;
         }
-
-        public int Count => _eventProperties.Count;
-
-        public IEnumerable<string> Keys => _eventProperties.Keys;
-
-        public IEnumerable<object> Values => _eventProperties.Values;
-
-        public object this[string key] => _eventProperties[key];
 
         public bool ContainsKey(string key)
         {
@@ -57,18 +51,13 @@ namespace PostHog.Model
             return _eventProperties.GetEnumerator();
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
         public Properties SetEventProperty(string key, object value)
         {
             _eventProperties[key] = value;
             return this;
         }
 
-        public Properties SetUserPopertyOnce(string key, object value)
+        public Properties SetUserPropertyOnce(string key, object value)
         {
             _userPropertiesToSetOnce[key] = value;
             _eventProperties["$set_once"] = _userPropertiesToSetOnce;
@@ -88,5 +77,18 @@ namespace PostHog.Model
         {
             return _eventProperties.TryGetValue(key, out value);
         }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public int Count => _eventProperties.Count;
+
+        public IEnumerable<string> Keys => _eventProperties.Keys;
+
+        public IEnumerable<object> Values => _eventProperties.Values;
+
+        public object this[string key] => _eventProperties[key];
     }
 }

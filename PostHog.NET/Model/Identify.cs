@@ -1,8 +1,10 @@
-﻿namespace PostHog.Model
+﻿using System;
+
+namespace PostHog.Model
 {
     public class Identify : BaseAction
     {
-        public Identify(string userId, Properties? properties) : base("$identify", userId, properties)
+        public Identify(string userId, Properties? properties, DateTime? timestamp = null) : base("$identify", userId, properties, timestamp)
         {
         }
     }

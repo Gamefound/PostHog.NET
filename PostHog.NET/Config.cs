@@ -25,6 +25,11 @@ namespace PostHog
             MaxRetryTime = maxRetryTime;
         }
 
+        private static string GetDefaultUserAgent()
+        {
+            return $"PostHog.NET/{Constants.VERSION}";
+        }
+
         public int FlushAt { get; set; }
 
         public TimeSpan FlushInterval { get; set; }
@@ -40,10 +45,5 @@ namespace PostHog
         public TimeSpan Timeout { get; set; }
 
         public string UserAgent { get; set; }
-
-        private static string GetDefaultUserAgent()
-        {
-            return $"PostHog.NET/{Constants.VERSION}";
-        }
     }
 }

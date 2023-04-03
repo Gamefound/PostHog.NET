@@ -1,5 +1,3 @@
-⚠️ Warning - This is in beta and may break ⚠️
-
 # Community .NET package for PostHog
 
 ## Build 

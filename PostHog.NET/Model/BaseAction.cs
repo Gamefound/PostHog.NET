@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace PostHog.Model
 {
@@ -10,7 +10,7 @@ namespace PostHog.Model
             Event = @event;
             DistinctId = distinctId;
             Properties = properties;
-            Timestamp = timestamp ?? DateTime.Now;
+            Timestamp = timestamp ?? DateTime.UtcNow;
         }
 
         [JsonProperty(PropertyName = "distinct_id")]

@@ -25,10 +25,6 @@ namespace PostHog.Request
             _max = Math.Min(max, IntMax);
         }
 
-        public int CurrentAttempt { get; private set; }
-
-        public bool HasReachedMax => _currentAttemptTime >= _max;
-
         public Task AttemptAsync()
         {
             return Task.Delay(AttemptTime());
@@ -42,7 +38,11 @@ namespace PostHog.Request
         public int AttemptTimeFor(int attempt)
         {
             var jitter = 0;
-            if (_jitter > 0) jitter = new Random().Next(_jitter);
+            if (_jitter > 0)
+            {
+                jitter = new Random().Next(_jitter);
+            }
+
             var waitingTime = _min * Math.Pow(_factor, attempt);
             waitingTime = Math.Min(_max, waitingTime);
             return (int)waitingTime + jitter;
@@ -52,5 +52,9 @@ namespace PostHog.Request
         {
             CurrentAttempt = _currentAttemptTime = 0;
         }
+
+        public int CurrentAttempt { get; private set; }
+
+        public bool HasReachedMax => _currentAttemptTime >= _max;
     }
 }

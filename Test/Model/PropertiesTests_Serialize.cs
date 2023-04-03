@@ -16,7 +16,7 @@ namespace Test.Model
             var properties = new Properties()
                 .SetEventProperty("event", "event_value")
                 .SetUserProperty("user", "userValue")
-                .SetUserPopertyOnce("user_once", "user_once_value");
+                .SetUserPropertyOnce("user_once", "user_once_value");
 
             var json = JsonConvert.SerializeObject(properties);
             var deserializedJson = JsonConvert.DeserializeObject<Properties>(json);

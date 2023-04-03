@@ -46,15 +46,17 @@ namespace PostHog
 
         public Statistics Statistics { get; set; }
 
-        public void Alias(string newId, string originalId)
+        public string Version => Constants.VERSION;
+
+        public void Alias(string newId, string originalId, DateTime? timestamp = null)
         {
             var properties = new Properties().SetEventProperty("alias", newId);
-            Enqueue(new Alias(originalId, properties));
+            Enqueue(new Alias(originalId, properties, timestamp));
         }
 
-        public void Capture(string distinctId, string eventName, Properties? properties = null)
+        public void Capture(string distinctId, string eventName, Properties? properties = null, DateTime? timestamp = null)
         {
-            Enqueue(new Capture(eventName, distinctId, properties));
+            Enqueue(new Capture(eventName, distinctId, properties, timestamp));
         }
 
         public void Dispose()
@@ -67,14 +69,14 @@ namespace PostHog
             return _flushHandler.FlushAsync();
         }
 
-        public void Identify(string distinctId, Properties? properties = null)
+        public void Identify(string distinctId, Properties? properties = null, DateTime? timestamp = null)
         {
-            Enqueue(new Identify(distinctId, properties));
+            Enqueue(new Identify(distinctId, properties, timestamp));
         }
 
-        public void Page(string distinctId, Properties? properties = null)
+        public void Page(string distinctId, Properties? properties = null, DateTime? timestamp = null)
         {
-            Enqueue(new Page(distinctId, properties));
+            Enqueue(new Page(distinctId, properties, timestamp));
         }
 
         internal void RaiseFailure(BaseAction action, Exception e)
