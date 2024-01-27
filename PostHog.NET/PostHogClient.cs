@@ -28,14 +28,14 @@ namespace PostHog
 
             if (config.MaxRetryTime.HasValue)
             {
-                requestHandler = new BlockingRequestHandler(this, config.Timeout, new Backoff(max: (Convert.ToInt32(config.MaxRetryTime.Value.TotalSeconds) * 1000), jitter: 5000));
+                requestHandler = new BlockingRequestHandler(this, config.Timeout, config.JsonSerializerOptions, new Backoff(max: (Convert.ToInt32(config.MaxRetryTime.Value.TotalSeconds) * 1000), jitter: 5000));
             }
             else
             {
-                requestHandler = new BlockingRequestHandler(this, config.Timeout);
+                requestHandler = new BlockingRequestHandler(this, config.Timeout, config.JsonSerializerOptions);
             }
 
-            _flushHandler = new AsyncIntervalFlushHandler(requestHandler, config.MaxQueueSize, config.FlushAt, config.FlushInterval, config.Threads, apiKey);
+            _flushHandler = new AsyncIntervalFlushHandler(requestHandler, config.MaxQueueSize, config.FlushAt, config.FlushInterval, config.Threads, apiKey, config.JsonSerializerOptions);
         }
 
         public Config Config { get; }

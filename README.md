@@ -12,10 +12,10 @@ You can get PostHog.NET by [grabbing the latest NuGet package](https://www.nuget
 Register the service
 ```
 services.AddPostHog("api-key", config =>
-            {
-                // leave empty if you are not self-hosting 
-                config.Host = "example.com";
-            });
+{
+    // leave empty if you are not self-hosting 
+    config.Host = "example.com";
+});
 ```
 
 Inject IPostHogClient 
@@ -35,6 +35,17 @@ var properties = new Properties()
                 .SetUserPopertyOnce("user-property-to-set-once", "value"); // $set_once equivalent
 
 _postHogClient.Capture("a86818cc-c84e-4453-9c48-d7bb636e7f2d", "Fetch weather forecast", properties);
+```
+
+## Configure serialization
+
+Since event property values can be complex objects, you can also configure the JSON serialization options used to serialize the events:
+
+```csharp
+services.AddPostHog("api-key", config =>
+{
+    config.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 ```
 
 ## Thanks

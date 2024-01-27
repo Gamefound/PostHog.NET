@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using PostHog.DI;
 
 namespace Sample
@@ -17,6 +18,7 @@ namespace Sample
             {
                 // leave empty if you are not self-hosting 
                 config.Host = "example.com";
+                config.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
 
             var app = builder.Build();

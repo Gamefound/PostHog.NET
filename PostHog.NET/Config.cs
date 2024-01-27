@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json;
 
 namespace PostHog
 {
@@ -45,5 +46,7 @@ namespace PostHog
         public TimeSpan Timeout { get; set; }
 
         public string UserAgent { get; set; }
+
+        public JsonSerializerOptions JsonSerializerOptions { get; set; } = new JsonSerializerOptions();
     }
 }

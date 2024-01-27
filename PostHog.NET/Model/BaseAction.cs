@@ -1,5 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PostHog.Model
 {
@@ -13,19 +13,19 @@ namespace PostHog.Model
             Timestamp = timestamp ?? DateTime.UtcNow;
         }
 
-        [JsonProperty(PropertyName = "distinct_id")]
+        [JsonPropertyName(name: "distinct_id")]
         public string? DistinctId { get; set; }
 
-        [JsonProperty(PropertyName = "event")]
+        [JsonPropertyName(name: "event")]
         public string Event { get; set; }
 
-        [JsonProperty(PropertyName = "properties")]
+        [JsonPropertyName(name: "properties")]
         public Properties? Properties { get; set; }
 
         [JsonIgnore]
         public int Size { get; set; }
 
-        [JsonProperty(PropertyName = "timestamp")]
+        [JsonPropertyName(name: "timestamp")]
         public DateTime Timestamp { get; set; }
     }
 }
