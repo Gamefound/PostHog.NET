@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace PostHog.Model
 {
@@ -11,10 +11,10 @@ namespace PostHog.Model
             ApiKey = apiKey;
         }
 
-        [JsonProperty(PropertyName = "batch")]
+        [JsonPropertyName(name: "batch")]
         internal List<BaseAction> Actions { get; set; }
 
-        [JsonProperty(PropertyName = "api_key")]
+        [JsonPropertyName(name: "api_key")]
         internal string ApiKey { get; set; }
     }
 }

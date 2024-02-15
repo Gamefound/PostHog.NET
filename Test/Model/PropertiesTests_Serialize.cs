@@ -1,9 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 using PostHog.Model;
-using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 namespace Test.Model
 {
@@ -18,15 +16,9 @@ namespace Test.Model
                 .SetUserProperty("user", "userValue")
                 .SetUserPropertyOnce("user_once", "user_once_value");
 
-            var json = JsonConvert.SerializeObject(properties);
-            var deserializedJson = JsonConvert.DeserializeObject<Properties>(json);
+            var json = JsonSerializer.Serialize(properties);
 
-            deserializedJson.Should().NotBeNull();
-            deserializedJson.Count.Should().Be(3);
-
-            deserializedJson["event"].Should().Be("event_value");
-            deserializedJson["$set"].Should().BeEquivalentTo(new Dictionary<string, object>() { { "user", (JValue)"userValue" } });
-            deserializedJson["$set_once"].Should().BeEquivalentTo(new Dictionary<string, object>() { { "user_once", (JValue)"user_once_value" } });
+            json.Should().Be("{\"event\":\"event_value\",\"$set\":{\"user\":\"userValue\"},\"$set_once\":{\"user_once\":\"user_once_value\"}}");
         }
     }
 }

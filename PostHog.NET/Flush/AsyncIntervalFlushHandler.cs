@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using PostHog.Model;
 using PostHog.Request;
 
@@ -38,15 +38,19 @@ namespace PostHog.Flush
         private readonly Semaphore _semaphore;
 
         private readonly int _threads;
+        
+        private readonly JsonSerializerOptions? _jsonSerializerOptions;
 
         private Timer? _timer;
 
-        internal AsyncIntervalFlushHandler(IRequestHandler requestHandler,
+        internal AsyncIntervalFlushHandler(
+            IRequestHandler requestHandler,
             int maxQueueSize,
             int maxBatchSize,
             TimeSpan flushInterval,
             int threads,
-            string apiKey)
+            string apiKey,
+            JsonSerializerOptions? jsonSerializerOptions = null)
         {
             _queue = new ConcurrentQueue<BaseAction>();
             _requestHandler = requestHandler;
@@ -57,6 +61,7 @@ namespace PostHog.Flush
             _threads = threads;
             _semaphore = new Semaphore(_threads, _threads);
             _apiKey = apiKey;
+            _jsonSerializerOptions = jsonSerializerOptions;
 
             RunInterval();
         }
@@ -76,7 +81,7 @@ namespace PostHog.Flush
 
         public void Process(BaseAction action)
         {
-            action.Size = JsonConvert.SerializeObject(action).Length;
+            action.Size = JsonSerializer.Serialize(action, _jsonSerializerOptions).Length;
 
             if (action.Size > ActionMaxSize)
             {
