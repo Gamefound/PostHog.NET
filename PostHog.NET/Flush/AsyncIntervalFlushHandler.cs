@@ -27,6 +27,8 @@ namespace PostHog.Flush
 
         private readonly TimeSpan _flushInterval;
 
+        private readonly JsonSerializerOptions? _jsonSerializerOptions;
+
         private readonly int _maxBatchSize;
 
         private readonly int _maxQueueSize;
@@ -38,8 +40,6 @@ namespace PostHog.Flush
         private readonly Semaphore _semaphore;
 
         private readonly int _threads;
-        
-        private readonly JsonSerializerOptions? _jsonSerializerOptions;
 
         private Timer? _timer;
 

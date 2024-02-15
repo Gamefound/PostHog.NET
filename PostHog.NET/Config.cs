@@ -37,6 +37,8 @@ namespace PostHog
 
         public string Host { get; set; }
 
+        public JsonSerializerOptions JsonSerializerOptions { get; set; } = new JsonSerializerOptions();
+
         public int MaxQueueSize { get; set; }
 
         public TimeSpan? MaxRetryTime { get; set; }
@@ -46,7 +48,5 @@ namespace PostHog
         public TimeSpan Timeout { get; set; }
 
         public string UserAgent { get; set; }
-
-        public JsonSerializerOptions JsonSerializerOptions { get; set; } = new JsonSerializerOptions();
     }
 }
