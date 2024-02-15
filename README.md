@@ -1,5 +1,10 @@
 # Community .NET package for PostHog
 
+> **⚠️ Warning**
+>
+> This package was created to work with self-hosted versions of PostHog. 
+> It is not officially supported by PostHog and may not be compatible with the latest version of PostHog Cloud.
+
 ## Build 
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Gamefound/PostHog.NET/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Gamefound/PostHog.NET/tree/master)
@@ -13,7 +18,6 @@ Register the service
 ```
 services.AddPostHog("api-key", config =>
 {
-    // leave empty if you are not self-hosting 
     config.Host = "example.com";
 });
 ```
@@ -32,7 +36,7 @@ then call a desired method
 var properties = new Properties()
                 .SetEventProperty("event", "value")
                 .SetUserProperty("user-property-to-set", "value") // $set equivalent
-                .SetUserPopertyOnce("user-property-to-set-once", "value"); // $set_once equivalent
+                .SetUserPropertyOnce("user-property-to-set-once", "value"); // $set_once equivalent
 
 _postHogClient.Capture("a86818cc-c84e-4453-9c48-d7bb636e7f2d", "Fetch weather forecast", properties);
 ```
