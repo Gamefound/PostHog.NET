@@ -15,7 +15,7 @@ You can get PostHog.NET by [grabbing the latest NuGet package](https://www.nuget
 
 ## Get Started
 Register the service
-```
+```csharp
 services.AddPostHog("api-key", config =>
 {
     config.Host = "example.com";
@@ -23,7 +23,7 @@ services.AddPostHog("api-key", config =>
 ```
 
 Inject IPostHogClient 
-```
+```csharp
 private readonly IPostHogClient _postHogClient;
 
 public WeatherForecastController(IPostHogClient postHogClient)
@@ -32,7 +32,7 @@ public WeatherForecastController(IPostHogClient postHogClient)
 }
 ```
 then call a desired method
-```
+```csharp
 var properties = new Properties()
                 .SetEventProperty("event", "value")
                 .SetUserProperty("user-property-to-set", "value") // $set equivalent
