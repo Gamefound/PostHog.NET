@@ -10,7 +10,7 @@
     <Product>PostHog.NET</Product>
     <Description>Community .NET package for PostHog</Description>
     <PackageProjectUrl>https://github.com/Gamefound/PostHog.NET</PackageProjectUrl>
-    <Version>2.0.0</Version>
+    <Version>2.0.1</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageId>PostHog.NET</PackageId>
     <PackageIcon>gf-icon.png</PackageIcon>
