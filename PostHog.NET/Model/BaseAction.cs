@@ -5,6 +5,11 @@ namespace PostHog.Model
 {
     public class BaseAction
     {
+        [JsonConstructor]
+        protected BaseAction()
+        {
+        }
+        
         public BaseAction(string @event, string? distinctId, Properties? properties = null, DateTime? timestamp = null)
         {
             Event = @event;
